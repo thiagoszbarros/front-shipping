@@ -1,0 +1,90 @@
+body {
+    padding: 0;
+    margin:0; 
+    background-color: #454d6b; 
+}
+
+#login {
+    display: flex;
+    align-items:  center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.card {
+    background-color: rgba(19, 19, 19, 0.3);
+    padding: 40px;
+    border-radius: 50px;
+    width: 280px;
+}
+
+.card-header {
+    padding-bottom: 50px;
+    opacity: 0.8;
+    color: #fff;
+}
+
+.card-header::after {
+    content: "";
+    width: 70px;
+    height: 1px;
+    background-color: #fff;
+    display: block;
+    margin-top: -17px;
+    margin-left: -5px;
+}
+
+.card-content-area{
+    display: flex;
+    flex-direction: column;
+    padding: 10x 0;
+}
+
+.card-content-area input {
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 5px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #222222;
+    outline: none;
+    color: #fff
+}
+
+.card-submit-button .submit {
+    width: 100%;
+    height:  40px;
+    background-color: #a13854;
+    color: #e1e1e1;
+    margin: 10px 0;
+    border-radius: 50px;
+    border: none;
+}
+
+.card-submit-button .submit:hover {
+    width: 100%;
+    height:  40px;
+    background-color: #010101;
+    color: #e1e1e1;
+    margin: 10px 0;
+    border-radius: 50px;
+    border: none;
+}
+
+.card-password-problem {
+    text-align: center;
+}
+
+.card-password-problem a {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+    color: #fff;
+    text-decoration: none;
+}
+
+.card-password-problem a:hover {
+    color: black;
+    text-decoration: none;
+}
