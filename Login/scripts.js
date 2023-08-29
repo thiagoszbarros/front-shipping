@@ -1,4 +1,4 @@
-import { Login } from "../Login.js";
+import { Login } from "../login.js";
 
 const loginForm = document.getElementById('login-form');
 
@@ -11,7 +11,7 @@ loginForm.addEventListener('submit', async (event) => {
     try {
         Login.login(email, password)
     } catch (error) {
-        console.error(error)
-        console.log('Deu erro')
+        alert('Erro inesperado')
     }
 });
+

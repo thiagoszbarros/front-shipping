@@ -14,7 +14,11 @@ class Login {
         })
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                if (res.error == 'Unauthorized') {
+                    alert('Email ou senha inválidos.')
+                    return
+                }
+                localStorage.setItem('SHIPPING_API_TOKEN', res.access_token)
             })
     }
 }
