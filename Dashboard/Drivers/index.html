@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body >
-    <div class="drivers-board" id="drivers-board">
-        
+
+<body>
+    <div>
+        <table class="drivers-board" id="drivers-board-table">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>Nome</td>
+                    <td>CPF</td>
+                    <td>Email</td>
+                    <td>Ações</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>    
+        </table>
     </div>
 </body>
 
@@ -15,7 +29,48 @@
     .drivers-board {
         background-color: rgb(255, 255, 255);
     }
+
+    .drivers-board {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: Arial, sans-serif;
+        margin-top: 20px;
+    }
+
+    .drivers-board th,
+    .drivers-board td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .drivers-board th {
+        background-color: #f2f2f2;
+    }
+
+    .drivers-board tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .drivers-board tr:hover {
+        background-color: #ddd;
+    }
+
+    .drivers-board button {
+    padding: 4px 8px;
+    margin-right: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    }
+
+    .drivers-board button:hover {
+    background-color: #0056b3;
+    }
 </style>
 
 <script type="module" src="./scripts.js"></script>
+
 </html>
