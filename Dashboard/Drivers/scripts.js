@@ -30,14 +30,13 @@ function populateTableContent(driverBoardTable, item) {
     const cpf = row.insertCell(2)
     const email = row.insertCell(3)
     const actionsCell = row.insertCell(4);
+    const updateButton = addUpdateButton(item.id)
+    const deleteButton = addDeleteButton(item.id);
+
     id.textContent = item.id
     name.textContent = item.nome
     cpf.textContent = item.cpf
     email.textContent = item.email
-
-    let updateButton = addUpdateButton(item.id)
-    let deleteButton = addDeleteButton(item.id);
-
     actionsCell.appendChild(updateButton);
     actionsCell.appendChild(deleteButton);
 }
