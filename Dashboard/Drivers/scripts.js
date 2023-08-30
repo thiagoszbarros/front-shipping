@@ -14,36 +14,77 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(res => res.json())
         .then(res => {
             let tableContent = res.data
-            console.log(res.data)
             tableContent.forEach(item => {
-                const row = driverBoardTable.insertRow();
-                const id = row.insertCell(0)
-                id.textContent = item.id
-                const name = row.insertCell(1)
-                name.textContent = item.nome
-                const cpf = row.insertCell(2)
-                cpf.textContent = item.cpf
-                const email = row.insertCell(3)
-                email.textContent = item.email
-                const actionsCell = row.insertCell(4);
-                
-                const updateButton = document.createElement('button');
-                updateButton.textContent = 'Update';
-                updateButton.addEventListener('click', () => {
-                    console.log('Update clicked for ID:', item.id);
-                });
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Delete';
-                deleteButton.addEventListener('click', () => {
-                    console.log('Delete clicked for ID:', item.id);
-                });
-
-                actionsCell.appendChild(updateButton);
-                actionsCell.appendChild(deleteButton);
+                populateTableContent(driverBoardTable, item)
             });
         })
         .catch(error => {
             console.error('Erro ao buscar dados da API:', error);
         });
 })
+
+function populateTableContent(driverBoardTable, item) {
+    const row = driverBoardTable.insertRow();
+    const id = row.insertCell(0)
+    const name = row.insertCell(1)
+    const cpf = row.insertCell(2)
+    const email = row.insertCell(3)
+    const actionsCell = row.insertCell(4);
+    id.textContent = item.id
+    name.textContent = item.nome
+    cpf.textContent = item.cpf
+    email.textContent = item.email
+
+    let updateButton = addUpdateButton(item.id)
+    let deleteButton = addDeleteButton(item.id);
+
+    actionsCell.appendChild(updateButton);
+    actionsCell.appendChild(deleteButton);
+}
+
+function addUpdateButton(id) {
+    const updateButton = document.createElement('button');
+    updateButton.setAttribute('id', id)
+    updateButton.addEventListener('click', function () {
+        handleUpdate(id)
+    })
+    updateButton.textContent = 'Update';
+
+    return updateButton
+}
+
+function addDeleteButton(id) {
+    const deleteButton = document.createElement('button')
+    deleteButton.addEventListener('click', function () {
+        handleDelete(id)
+    })
+    deleteButton.textContent = 'Delete';
+
+    return deleteButton
+}
+
+function handleUpdate(id) {
+    console.log('Update clicked for ID:', id);
+}
+
+function handleDelete(id) {
+    console.log('Delete clicked for ID:', id);
+
+    fetch(`${Config.apiUrl()}/api/motoristas/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('SHIPPING_API_TOKEN')}`
+        }
+    })
+        .then(
+            alert('Item deletado com sucesso!')
+        )
+        .then(
+            location.reload()
+        )
+        .catch(error => {
+            console.error('Erro ao deletar dados da API:', error);
+        });
+}
