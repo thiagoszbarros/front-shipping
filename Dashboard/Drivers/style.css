@@ -1,0 +1,85 @@
+.drivers-board {
+    background-color: rgb(255, 255, 255);
+}
+
+.drivers-board {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+.drivers-board th,
+.drivers-board td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.drivers-board th {
+    background-color: #f2f2f2;
+}
+
+.drivers-board tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.drivers-board tr:hover {
+    background-color: #ddd;
+}
+
+.drivers-board button {
+    padding: 4px 8px;
+    margin-right: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.drivers-board button:hover {
+    background-color: #0056b3;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: #fff;
+    display: flex;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #2980b9;
+}

@@ -4,10 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./scripts.js"></script>
     <title>Document</title>
 </head>
 
 <body>
+    <div>
+        <a href="/Dashboard/">VOLTAR</a>
+    </div>
+    <h1>Criar Novo Motorista</h1>
+    <form id="createDriverForm">
+        <tr>
+            <td><label for="name">Nome:</label>
+                <input type="text" id="name" required><br>
+            </td>
+            <td><label for="cpf">CPF:</label>
+                <input type="text" id="cpf" required><br>
+            </td>
+            <td><label for="data_nascimento">Data do nascimento:</label>
+                <input type="data_nascimento" id="data_nascimento" required><br>
+            </td>
+            <td><label for="email">Email:</label>
+                <input type="email" id="email" required><br>
+            </td>
+            <td><label for="transportadora">Transportadora:</label>
+                <input type="transportadora" id="transportadora" required><br>
+            </td>
+            <td> <button type="submit">Criar Motorista</button></td>
+        </tr>
+
+    </form>
     <div>
         <table class="drivers-board" id="drivers-board-table">
             <thead>
@@ -20,57 +47,9 @@
                 </tr>
             </thead>
             <tbody>
-            </tbody>    
+            </tbody>
         </table>
     </div>
 </body>
-
-<style>
-    .drivers-board {
-        background-color: rgb(255, 255, 255);
-    }
-
-    .drivers-board {
-        border-collapse: collapse;
-        width: 100%;
-        font-family: Arial, sans-serif;
-        margin-top: 20px;
-    }
-
-    .drivers-board th,
-    .drivers-board td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-
-    .drivers-board th {
-        background-color: #f2f2f2;
-    }
-
-    .drivers-board tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .drivers-board tr:hover {
-        background-color: #ddd;
-    }
-
-    .drivers-board button {
-    padding: 4px 8px;
-    margin-right: 4px;
-    border: none;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    }
-
-    .drivers-board button:hover {
-    background-color: #0056b3;
-    }
-</style>
-
-<script type="module" src="./scripts.js"></script>
 
 </html>

@@ -1,6 +1,7 @@
 import { Config } from "../../config.js";
 
 document.addEventListener('DOMContentLoaded', function () {
+
     const driverBoardTable = document.getElementById('drivers-board-table');
 
     fetch(`${Config.apiUrl()}/api/motoristas`, {
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(res => res.json())
         .then(res => {
             let tableContent = res.data
+            verifyContent(tableContent)
             tableContent.forEach(item => {
                 populateTableContent(driverBoardTable, item)
             });
@@ -21,6 +23,28 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error('Erro ao buscar dados da API:', error);
         });
+
+    const createDriverForm = document.getElementById('createDriverForm');
+
+    createDriverForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const cpf = document.getElementById('cpf').value;
+        const data_nascimento = document.getElementById('data_nascimento').value;
+        const email = document.getElementById('email').value;
+        const transportadora = document.getElementById('transportadora').value;
+
+        const data = {
+            nome: name,
+            cpf: cpf,
+            data_nascimento: data_nascimento,
+            email: email,
+            transportadora: transportadora
+        };
+
+        createDriver(data);
+    });
 })
 
 function populateTableContent(driverBoardTable, item) {
@@ -85,5 +109,36 @@ function handleDelete(id) {
         )
         .catch(error => {
             console.error('Erro ao deletar dados da API:', error);
+        });
+}
+
+function verifyContent(tableContent) {
+    if (typeof tableContent != 'object') {
+        localStorage.removeItem('SHIPPING_API_TOKEN')
+        location.href = location.origin
+        return
+    }
+}
+
+function createDriver(data) {
+
+    fetch(`${Config.apiUrl()}/api/motoristas`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application.json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('SHIPPING_API_TOKEN')}`,
+            'Origin': 'http://localhost:5500'
+        },
+        'Mode': 'cors',
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log(response)
+            alert('Registro de motorista criado:', result);
+        })
+        .catch(error => {
+            alert('Erro ao criar registro de motorista');
         });
 }
