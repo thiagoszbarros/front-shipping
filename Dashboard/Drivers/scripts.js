@@ -1,9 +1,7 @@
 import { Config } from "../../config.js";
 
 document.addEventListener('DOMContentLoaded', function () {
-
     const driverBoardTable = document.getElementById('drivers-board-table');
-
     fetch(`${Config.apiUrl()}/api/motoristas`, {
         method: 'GET',
         headers: {
@@ -28,21 +26,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     createDriverForm.addEventListener('submit', function (event) {
         event.preventDefault();
-
         const name = document.getElementById('name').value;
         const cpf = document.getElementById('cpf').value;
         const data_nascimento = document.getElementById('data_nascimento').value;
         const email = document.getElementById('email').value;
-        const transportadora = document.getElementById('transportadora').value;
-
+        const transportadora_id = document.getElementById('transportadora').value;
         const data = {
             nome: name,
             cpf: cpf,
             data_nascimento: data_nascimento,
             email: email,
-            transportadora: transportadora
+            transportadora_id: transportadora_id
         };
-
         createDriver(data);
     });
 })
@@ -53,9 +48,9 @@ function populateTableContent(driverBoardTable, item) {
     const name = row.insertCell(1)
     const cpf = row.insertCell(2)
     const email = row.insertCell(3)
-    const actionsCell = row.insertCell(4);
-    const updateButton = addUpdateButton(item.id)
-    const deleteButton = addDeleteButton(item.id);
+    const actionsCell = row.insertCell(4)
+    const updateButton = addUpdateButton(item.id, item)
+    const deleteButton = addDeleteButton(item.id)
 
     id.textContent = item.id
     name.textContent = item.nome
@@ -65,14 +60,13 @@ function populateTableContent(driverBoardTable, item) {
     actionsCell.appendChild(deleteButton);
 }
 
-function addUpdateButton(id) {
+function addUpdateButton(id, item) {
     const updateButton = document.createElement('button');
     updateButton.setAttribute('id', id)
     updateButton.addEventListener('click', function () {
-        handleUpdate(id)
+        displayUpdateModal(item);
     })
     updateButton.textContent = 'Update';
-
     return updateButton
 }
 
@@ -82,17 +76,10 @@ function addDeleteButton(id) {
         handleDelete(id)
     })
     deleteButton.textContent = 'Delete';
-
     return deleteButton
 }
 
-function handleUpdate(id) {
-    console.log('Update clicked for ID:', id);
-}
-
 function handleDelete(id) {
-    console.log('Delete clicked for ID:', id);
-
     fetch(`${Config.apiUrl()}/api/motoristas/${id}`, {
         method: 'DELETE',
         headers: {
@@ -108,7 +95,7 @@ function handleDelete(id) {
             location.reload()
         )
         .catch(error => {
-            console.error('Erro ao deletar dados da API:', error);
+            console.error('Erro ao deletar motorista.')
         });
 }
 
@@ -125,20 +112,83 @@ function createDriver(data) {
     fetch(`${Config.apiUrl()}/api/motoristas`, {
         method: 'POST',
         headers: {
-            Accept: 'application.json',
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('SHIPPING_API_TOKEN')}`,
-            'Origin': 'http://localhost:5500'
+            'Access-Control-Allow-Origin': '*'
         },
-        'Mode': 'cors',
         body: JSON.stringify(data)
     })
         .then(response => response.json())
-        .then(result => {
-            console.log(response)
-            alert('Registro de motorista criado:', result);
+        .then(response => {
+            if (response.errors) {
+                alert(response.message);
+                return
+            }
+
+            alert(response)
+            location.reload()
         })
         .catch(error => {
-            alert('Erro ao criar registro de motorista');
+            alert('Erro ao criar registro de motorista')
+        });
+}
+
+function displayUpdateModal(item) {
+    const updateModal = document.getElementById('updateDriverModal')
+    const updateNameInput = document.getElementById('updateName')
+    const updateCpfInput = document.getElementById('updateCpf')
+    const updateDataNascimentoInput = document.getElementById('updateDataNascimento')
+    const updateEmailInput = document.getElementById('updateEmail')
+    updateNameInput.value = item.nome
+    updateCpfInput.value = item.cpf
+    updateDataNascimentoInput.value = item.data_nascimento ?? null
+    updateEmailInput.value = item.email
+
+    const closeUpdateModal = document.getElementById('closeUpdateModal')
+    closeUpdateModal.addEventListener('click', function () {
+        updateModal.style.display = 'none';
+    });
+
+    const updateDriverForm = document.getElementById('updateDriverForm')
+    updateDriverForm.addEventListener('submit', function (event) {
+        event.preventDefault()
+
+        const updatedData = {
+            nome: updateNameInput.value,
+            cpf: updateCpfInput.value,
+            data_nascimento: updateDataNascimentoInput.value,
+            email: updateEmailInput.value
+        }
+
+        updateDriver(item.id, updatedData)
+    });
+}
+
+function updateDriver(id, updatedData) {
+    fetch(`${Config.apiUrl()}/api/motoristas/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('SHIPPING_API_TOKEN')}`,
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(updatedData)
+    })
+        .then(response => {
+            if (response.status == 204) {
+                alert('Motorista atualizado com sucesso')
+                location.reload()
+            } else {
+                if (response.errors) {
+                    alert(response.message)
+                    location.reload()
+                }
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Erro ao atualizar o motorista')
         });
 }

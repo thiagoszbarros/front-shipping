@@ -16,25 +16,36 @@
     <h1>Criar Novo Motorista</h1>
     <form id="createDriverForm">
         <tr>
-            <td><label for="name">Nome:</label>
-                <input type="text" id="name" required><br>
+            <td>
+                <input type="text" id="name" placeholder="Nome" required><br>
             </td>
-            <td><label for="cpf">CPF:</label>
-                <input type="text" id="cpf" required><br>
+            <td>
+                <input type="text" id="cpf" placeholder="CPF" required><br>
             </td>
-            <td><label for="data_nascimento">Data do nascimento:</label>
-                <input type="data_nascimento" id="data_nascimento" required><br>
+            <td>
+                <input type="data_nascimento" id="data_nascimento" placeholder="Data de Nascimento" required><br>
             </td>
-            <td><label for="email">Email:</label>
-                <input type="email" id="email" required><br>
+            <td>
+                <input type="email" id="email" placeholder="Email"required><br>
             </td>
-            <td><label for="transportadora">Transportadora:</label>
-                <input type="transportadora" id="transportadora" required><br>
+            <td>
+                <input type="transportadora" id="transportadora" placeholder="Transportadora" required><br>
             </td>
             <td> <button type="submit">Criar Motorista</button></td>
         </tr>
 
     </form>
+    <div id="updateDriverModal" class="modal">
+        <span class="close" id="closeUpdateModal"></span>
+            <h2>Atualizar Motorista</h2>
+            <form id="updateDriverForm">
+                <input type="text" id="updateName" placeholder="Novo Nome">
+                <input type="text" id="updateCpf" placeholder="Novo CPF">
+                <input type="text" id="updateDataNascimento" placeholder="Nova Data de Nascimento">
+                <input type="text" id="updateEmail" placeholder="Novo Email">
+                <button type="submit">Salvar</button>
+            </form>
+    </div>
     <div>
         <table class="drivers-board" id="drivers-board-table">
             <thead>
